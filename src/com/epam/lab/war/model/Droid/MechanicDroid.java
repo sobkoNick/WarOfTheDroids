@@ -15,8 +15,19 @@ public class MechanicDroid extends Droid {
 
     }
 
+    /**
+     * Decides which droid to fix based on the lowest healthLevel
+     * @param droids
+     * @return
+     */
     public Droid decideWhichDroidToFix(List<Droid> droids){
-
+        Droid droidToFix = new MechanicDroid(100, 100);
+        for (Droid droid: droids) {
+            if (droid.getHealthLevel() < droidToFix.getHealthLevel()) {
+                droidToFix = droid;
+            }
+        }
+        return droidToFix;
     }
 
     public void fixOtherDroid(Droid droid) {

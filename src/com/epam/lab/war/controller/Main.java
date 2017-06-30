@@ -1,6 +1,5 @@
 package com.epam.lab.war.controller;
 
-import com.epam.lab.war.model.Droid.BattleDroid;
 import com.epam.lab.war.model.Droid.BattleDroidB1;
 import com.epam.lab.war.model.Droid.Droid;
 import com.epam.lab.war.model.Droid.SuperBattleDroidB2;
