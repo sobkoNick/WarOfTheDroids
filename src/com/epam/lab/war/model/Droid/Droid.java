@@ -7,8 +7,8 @@ public abstract class Droid {
     private int healthLevel;
     private int energyLevel;
 
-    public Droid(int damageLevel, int energyLevel) {
-        this.healthLevel = damageLevel;
+    public Droid(int healthLevel, int energyLevel) {
+        this.healthLevel = healthLevel;
         this.energyLevel = energyLevel;
     }
 

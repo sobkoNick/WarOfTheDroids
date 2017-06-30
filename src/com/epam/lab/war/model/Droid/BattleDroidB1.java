@@ -1,39 +1,43 @@
 package com.epam.lab.war.model.Droid;
 
+import com.epam.lab.war.model.Weapon.BlusterGun;
 import com.epam.lab.war.view.ConsoleView;
 import com.epam.lab.war.view.View;
 
+import java.util.List;
 import java.util.Random;
 
 /**
  * Created by Mykola on 29.06.2017.
  */
 public class BattleDroidB1 extends Droid implements BattleDroid {
-    private int ammunition;
-    final static int DAMAGE_POWER = 3;
+    private BlusterGun blusterGun;
 
-    public BattleDroidB1(int healthLevel, int energyLevel, int ammunition) {
+    public BattleDroidB1(int healthLevel, int energyLevel, BlusterGun blusterGun) {
         super(healthLevel, energyLevel);
-        this.ammunition = ammunition;
+        this.blusterGun = blusterGun;
     }
 
-    public int getAmmunition() {
-        return ammunition;
+    public BlusterGun getBlusterGun() {
+        return blusterGun;
     }
 
-    public void setAmmunition(int ammunition) {
-        this.ammunition = ammunition;
+    public void setBlusterGun(BlusterGun blusterGun) {
+        this.blusterGun = blusterGun;
     }
-
-    public static int getDamagePower() {
-        return DAMAGE_POWER;
-    }
-
 
     @Override
     public void move() {
-        View view = new ConsoleView();
-        view.print("Droid moved");
+        walk();
+    }
+
+    @Override
+    public Droid decideWhichDroidToShoot(List<Droid> droids) {
+
+    }
+
+    public  void walk(){
+
     }
 
     /**
@@ -43,8 +47,7 @@ public class BattleDroidB1 extends Droid implements BattleDroid {
      */
     @Override
     public boolean shoot() {
-        Random random = new Random();
-        return random.nextBoolean();
+        return blusterGun.shoot();
     }
 
 }
