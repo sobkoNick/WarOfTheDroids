@@ -1,6 +1,6 @@
-package com.epam.lab.war.model.Droid;
+package com.epam.lab.war.model.droid;
 
-import com.epam.lab.war.model.Weapon.BlusterGun;
+import com.epam.lab.war.model.weapon.BlusterGun;
 
 import java.util.List;
 
@@ -14,13 +14,14 @@ public class Droideka extends BattleDroidB1 {
     private int shieldHealthLevel;
     private boolean shieldActive;
 
-    public Droideka(int healthLevel, int energyLevel, BlusterGun blusterGun, BlusterGun blusterGun2,
-                    BlusterGun blusterGun3, BlusterGun blusterGun4, int shieldHealthLevel) {
-        super(healthLevel, energyLevel, blusterGun);
+    public Droideka(int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun, BlusterGun blusterGun2, BlusterGun blusterGun3,
+                    BlusterGun blusterGun4, int shieldHealthLevel, boolean shieldActive) {
+        super(healthLevel, energyLevel, positionX, positionY, blusterGun);
         this.blusterGun2 = blusterGun2;
         this.blusterGun3 = blusterGun3;
         this.blusterGun4 = blusterGun4;
         this.shieldHealthLevel = shieldHealthLevel;
+        this.shieldActive = shieldActive;
     }
 
     public int getShieldHealthLevel() {
@@ -67,7 +68,7 @@ public class Droideka extends BattleDroidB1 {
 
     @Override
     public Droid decideWhichDroidToShoot(List<Droid> droids) {
-
+        return null;
     }
 
     public int shootFromAllWeapons() {

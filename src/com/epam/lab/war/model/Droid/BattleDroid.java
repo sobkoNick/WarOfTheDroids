@@ -1,4 +1,4 @@
-package com.epam.lab.war.model.Droid;
+package com.epam.lab.war.model.droid;
 
 import java.util.List;
 

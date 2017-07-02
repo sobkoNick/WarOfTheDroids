@@ -1,7 +1,7 @@
-package com.epam.lab.war.model.Droid;
+package com.epam.lab.war.model.droid;
 
-import com.epam.lab.war.model.Weapon.BlusterGun;
-import com.epam.lab.war.model.Weapon.RocketGun;
+import com.epam.lab.war.model.weapon.BlusterGun;
+import com.epam.lab.war.model.weapon.RocketGun;
 
 import java.util.List;
 import java.util.Random;
@@ -12,8 +12,8 @@ import java.util.Random;
 public class SuperBattleDroidB2 extends BattleDroidB1 {
     private RocketGun rocketGun;
 
-    public SuperBattleDroidB2(int healthLevel, int energyLevel, BlusterGun blusterGun, RocketGun rocketGun) {
-        super(healthLevel, energyLevel, blusterGun);
+    public SuperBattleDroidB2(int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun, RocketGun rocketGun) {
+        super(healthLevel, energyLevel, positionX, positionY, blusterGun);
         this.rocketGun = rocketGun;
     }
 
@@ -25,7 +25,7 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
         this.rocketGun = rocketGun;
     }
 
-    public void chooseWeapon(){
+    public void chooseWeapon() {
         Random random = new Random();
         if (random.nextBoolean()) {
             shoot();
@@ -34,13 +34,13 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
         }
     }
 
-    public boolean rocketShoot(){
+    public boolean rocketShoot() {
         return rocketGun.shoot();
     }
 
     @Override
     public Droid decideWhichDroidToShoot(List<Droid> droids) {
-
+        return null;
     }
     //    public void useShield() {
 //        View view = new ConsoleView();

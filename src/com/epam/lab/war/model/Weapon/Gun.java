@@ -1,4 +1,4 @@
-package com.epam.lab.war.model.Weapon;
+package com.epam.lab.war.model.weapon;
 
 /**
  * Created by Mykola on 29.06.2017.

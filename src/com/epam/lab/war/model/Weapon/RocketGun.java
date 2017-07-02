@@ -1,4 +1,6 @@
-package com.epam.lab.war.model.Weapon;
+package com.epam.lab.war.model.weapon;
+
+import com.epam.lab.war.model.droid.constant.DroidContant;
 
 import java.util.Random;
 
@@ -8,9 +10,9 @@ import java.util.Random;
 public class RocketGun implements Gun {
 
     private int rocketCountInGun;
-    final static int MAX_ROCKET_IN_GUN = 10;
-    final static int DAMAGE_POWER = 50;
-    final static double SHOOT_ACCURACY = 0.5;
+    final static int MAX_ROCKET_IN_GUN = DroidContant.MAX_ROCKET_IN_GUN;
+    final static int DAMAGE_POWER = DroidContant.ROCKET_DAMAGE_POWER;
+    final static double SHOOT_ACCURACY = DroidContant.ROCKET_SHOOT_ACCURACY;
 
     public static int getDamagePower() {
         return DAMAGE_POWER;

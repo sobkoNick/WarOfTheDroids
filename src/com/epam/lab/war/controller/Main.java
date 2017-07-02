@@ -1,10 +1,11 @@
 package com.epam.lab.war.controller;
 
-import com.epam.lab.war.model.Droid.BattleDroidB1;
-import com.epam.lab.war.model.Droid.Droid;
-import com.epam.lab.war.model.Droid.SuperBattleDroidB2;
-import com.epam.lab.war.model.Weapon.BlusterGun;
-import com.epam.lab.war.model.Weapon.RocketGun;
+import com.epam.lab.war.model.droid.BattleDroidB1;
+import com.epam.lab.war.model.droid.Droid;
+import com.epam.lab.war.model.droid.SuperBattleDroidB2;
+import com.epam.lab.war.model.droid.constant.DroidContant;
+import com.epam.lab.war.model.weapon.BlusterGun;
+import com.epam.lab.war.model.weapon.RocketGun;
 import com.epam.lab.war.view.ViewStartScreen;
 
 import java.util.ArrayList;
@@ -15,17 +16,19 @@ import java.util.List;
  */
 public class Main {
     public static void main(String[] args) {
-
         ViewStartScreen.printStartMessage();
 
         List<Droid> droids = new ArrayList<>();
 
         List<Droid> enemyDroids = new ArrayList<>();
 
+        GameController gameController = new GameController();
+        gameController.printArr();
 
-        BattleDroidB1 battleDroid = new BattleDroidB1(100, 100, new BlusterGun());
 
-        SuperBattleDroidB2 superBattleDroidB2 = new SuperBattleDroidB2(100, 100, new BlusterGun(), new RocketGun());
+        BattleDroidB1 battleDroid = new BattleDroidB1(100, 100, 0, 0, new BlusterGun());
+
+        SuperBattleDroidB2 superBattleDroidB2 = new SuperBattleDroidB2(100, 100, 0, 0, new BlusterGun(), new RocketGun());
 
 //        System.out.println("hello");
 //        try {

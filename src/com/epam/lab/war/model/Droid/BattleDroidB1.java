@@ -1,11 +1,8 @@
-package com.epam.lab.war.model.Droid;
+package com.epam.lab.war.model.droid;
 
-import com.epam.lab.war.model.Weapon.BlusterGun;
-import com.epam.lab.war.view.ConsoleView;
-import com.epam.lab.war.view.View;
+import com.epam.lab.war.model.weapon.BlusterGun;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Mykola on 29.06.2017.
@@ -13,8 +10,8 @@ import java.util.Random;
 public class BattleDroidB1 extends Droid implements BattleDroid {
     private BlusterGun blusterGun;
 
-    public BattleDroidB1(int healthLevel, int energyLevel, BlusterGun blusterGun) {
-        super(healthLevel, energyLevel);
+    public BattleDroidB1(int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun) {
+        super(healthLevel, energyLevel, positionX, positionY);
         this.blusterGun = blusterGun;
     }
 
@@ -33,7 +30,7 @@ public class BattleDroidB1 extends Droid implements BattleDroid {
 
     @Override
     public Droid decideWhichDroidToShoot(List<Droid> droids) {
-
+        return null;
     }
 
     public  void walk(){
@@ -41,7 +38,7 @@ public class BattleDroidB1 extends Droid implements BattleDroid {
     }
 
     /**
-     * Droid shoots with some accuracy level which defines if he shoot on target
+     * droid shoots with some accuracy level which defines if he shoot on target
      * true - shoot
      * false - missed
      */

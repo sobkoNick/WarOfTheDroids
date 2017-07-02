@@ -5,7 +5,12 @@ package com.epam.lab.war.view;
  */
 public class ConsoleView implements View {
     @Override
-    public void print(String str) {
+    public void println(String str) {
         System.out.println(str);
+    }
+
+    @Override
+    public void print(String str) {
+        System.out.print(str);
     }
 }
