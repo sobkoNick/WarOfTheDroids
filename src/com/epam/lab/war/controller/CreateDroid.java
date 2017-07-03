@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Created by Mykola on 03.07.2017.
+ * Creates every type of droid
  */
 public class CreateDroid {
 

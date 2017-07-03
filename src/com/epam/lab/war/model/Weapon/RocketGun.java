@@ -5,7 +5,7 @@ import com.epam.lab.war.model.droid.constant.DroidContant;
 import java.util.Random;
 
 /**
- * Created by Mykola on 29.06.2017.
+ * Rocket gun. damage power is higher but accuracy is lower than in blusterGun
  */
 public class RocketGun implements Gun {
 

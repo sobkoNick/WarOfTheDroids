@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Mykola on 29.06.2017.
+ * B1 class
  */
 public class BattleDroidB1 extends Droid implements BattleDroid {
 

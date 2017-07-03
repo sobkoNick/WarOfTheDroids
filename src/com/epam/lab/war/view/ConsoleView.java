@@ -1,7 +1,7 @@
 package com.epam.lab.war.view;
 
 /**
- * Created by Mykola on 29.06.2017.
+ * Console view. imp View.
  */
 public class ConsoleView implements View {
     @Override

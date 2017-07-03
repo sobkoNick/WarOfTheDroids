@@ -17,19 +17,10 @@ public class Main {
     public static void main(String[] args) {
 
         GameController gameController = new GameController();
-        gameController.setUpBattleField();
+        CreateBattleField.setUpBattleField();
         gameController.startGame();
         gameController.battleRound();
 
-
-//        System.out.println("hello");
-//        try {
-//            Thread.sleep(1000); // Just to give the user a chance to see "hello".
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-////        System.out.print("\b\b\b\b\b");
-//        System.out.print("world");
     }
 
 }

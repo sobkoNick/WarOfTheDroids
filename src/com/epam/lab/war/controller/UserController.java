@@ -7,7 +7,7 @@ import com.epam.lab.war.view.View;
 import java.util.List;
 
 /**
- * Created by Mykola on 03.07.2017.
+ * Set up which droid will be controlled by user
  */
 public class UserController {
 

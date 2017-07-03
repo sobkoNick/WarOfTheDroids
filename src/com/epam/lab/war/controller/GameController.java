@@ -2,12 +2,10 @@ package com.epam.lab.war.controller;
 
 import com.epam.lab.war.model.droid.Droid;
 import com.epam.lab.war.model.droid.constant.DroidContant;
-import com.epam.lab.war.view.ConsoleView;
-import com.epam.lab.war.view.UserMessages;
-import com.epam.lab.war.view.View;
-import com.epam.lab.war.view.ViewStartScreen;
+import com.epam.lab.war.view.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,62 +31,6 @@ public class GameController {
     public static char[][] battleField = new char[12][12];
     public static char[][] fixedPositionField = new char[12][12];
 
-
-    public void setUpBattleField() {
-        for (int i = 0; i < battleField.length; i++) {
-            for (int j = 0; j < battleField.length; j++) {
-                battleField[i][j] = '0';
-            }
-        }
-
-        for (int i = 3; i < 9; i++) {
-            battleField[i][0] = '-';
-            battleField[i][battleField.length - 1] = '-';
-            battleField[i][4] = '-';
-            battleField[i][5] = '-';
-            battleField[i][6] = '-';
-            battleField[i][7] = '-';
-        }
-
-        battleField[2][0] = '1';
-        battleField[2][4] = '1';
-        battleField[2][7] = '1';
-        battleField[2][11] = '1';
-
-        battleField[9][0] = '1';
-        battleField[9][4] = '1';
-        battleField[9][7] = '1';
-        battleField[9][11] = '1';
-
-        battleField[2][5] = '2';
-        battleField[2][6] = '2';
-
-        battleField[9][5] = '2';
-        battleField[9][6] = '2';
-
-        fixedPositionField = battleField;
-
-        printBattleField();
-    }
-
-    public void printBattleField() {
-        for (int i = 0; i < battleField.length; i++) {
-            view.print(String.format("\t%d", i));
-        }
-        view.println("");
-        for (int i = 0; i < battleField.length; i++) {
-            view.print("\t-");
-        }
-        view.println("");
-        for (int i = 0; i < battleField.length; i++) {
-            view.print(String.format("%d|", i));
-            for (int j = 0; j < battleField.length; j++) {
-                view.print(String.format("\t%c", battleField[i][j]));
-            }
-            view.println("");
-        }
-    }
-
     public void startGame() {
         ViewStartScreen.printStartMessage();
         view.println("");
@@ -106,7 +48,6 @@ public class GameController {
         energyDroidNumber = Main.scanner.nextInt();
 
         createDroidList();
-
 
         userController.setDroidControlledByUser(droids);
     }
@@ -143,19 +84,34 @@ public class GameController {
                 enemyDroids.add(createDroid.createEnergyDroid(true));
             }
         }
-        printBattleField();
+        ShowBattleField showBattleField = new ShowBattleField();
+        showBattleField.printBattleField();
     }
 
-    public void battleRound() {
-
-        int droidToAttack = userMessages.act(enemyDroids);
-        for (Droid d : droids
-                ) {
-            if (d.isUser() && d.isAlive()) {
-                d.actForUser(enemyDroids.get(droidToAttack));
+    public void userMakeDecision() {
+        if (userMessages.chooseAction() == 0) {
+            List<Integer> newPosition = new LinkedList<>();
+            newPosition = userMessages.moveToPosition();
+            for (Droid d : droids
+                    ) {
+                if (d.isUser() && d.isAlive()) {
+                    d.move(newPosition.get(1), newPosition.get(0));
+                }
+            }
+        } else {
+            int droidToAttack = userMessages.act(enemyDroids);
+            for (Droid d : droids
+                    ) {
+                if (d.isUser() && d.isAlive()) {
+                    if (d.getType().equals(DroidContant.MECHANIC_TYPE) || d.getType().equals(DroidContant.ENERGY_TYPE)) {
+                        d.actForUser(droids.get(droidToAttack));
+                    }
+                    d.actForUser(enemyDroids.get(droidToAttack));
+                }
             }
         }
-
+    }
+    public void droidsAct() {
         for (int i = 0; i < droids.size(); i++) {
             if (!droids.get(i).isUser() && droids.get(i).isAlive()) {
                 if (droids.get(i).getType().equals(DroidContant.ENERGY_TYPE) ||
@@ -165,7 +121,7 @@ public class GameController {
                     droids.get(i).act(enemyDroids, false);
                 }
             }
-            if (enemyDroids.get(i).isAlive()){
+            if (enemyDroids.get(i).isAlive()) {
                 if (enemyDroids.get(i).getType().equals(DroidContant.ENERGY_TYPE) || enemyDroids.get(i).getType().equals(DroidContant.MECHANIC_TYPE)) {
                     enemyDroids.get(i).act(enemyDroids, true);
                 } else {
@@ -173,8 +129,17 @@ public class GameController {
                 }
             }
         }
+    }
+
+    public void battleRound() {
+        userMakeDecision();
+        droidsAct();
+        printResult();
+    }
+    public void printResult() {
         view.println(String.format("-----Results after round #%d--------", ++battleCounter));
-        printBattleField();
+        ShowBattleField showBattleField = new ShowBattleField();
+        showBattleField.printBattleField();
         view.println("----------USER DROIDS------------");
         for (int i = 0; i < droids.size(); i++) {
             view.println(droids.get(i).toString());
@@ -209,6 +174,5 @@ public class GameController {
         } else {
             battleRound();
         }
-
     }
 }

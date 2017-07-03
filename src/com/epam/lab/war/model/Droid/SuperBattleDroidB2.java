@@ -47,36 +47,22 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
 
         int droidNumber = 0;
         Droid droidToAttack = droids.get(0);
-        for (Droid d: droids
+        for (Droid d : droids
                 ) {
-            if (d.getHealthLevel()  > droidToAttack.getHealthLevel()) {
+            if (d.getHealthLevel() > droidToAttack.getHealthLevel()) {
                 droidToAttack = d;
                 droidNumber = droids.indexOf(d);
             }
         }
-
-
-
-//        double damageOdd = 0;
-//
-//        if (GameController.fixedPositionField[droids.get(droidNumber).getPositionY()][droids.get(droidNumber).getPositionX()] == '1') {
-//            damageOdd = 0.5;
-//        }
-//        if (GameController.fixedPositionField[droids.get(droidNumber).getPositionY()][droids.get(droidNumber).getPositionX()] == '2') {
-//            damageOdd = 0;
-//        }
-
         if (random.nextBoolean()) {
             if (shoot()) {
                 int damageToEnemyDroid = DroidContant.BLUSTER_DAMAGE_POWER;
                 droids.get(droidNumber).setDamage(damageToEnemyDroid);
-//                droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
             }
         } else {
             if (rocketShoot()) {
                 int damageToEnemyDroid = DroidContant.ROCKET_DAMAGE_POWER;
                 droids.get(droidNumber).setDamage(damageToEnemyDroid);
-//                droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
             }
         }
         return droids;

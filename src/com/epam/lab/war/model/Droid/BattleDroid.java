@@ -3,7 +3,7 @@ package com.epam.lab.war.model.droid;
 import java.util.List;
 
 /**
- * Created by Mykola on 29.06.2017.
+ * Battle Droid Interface
  */
 public interface BattleDroid {
     boolean shoot();

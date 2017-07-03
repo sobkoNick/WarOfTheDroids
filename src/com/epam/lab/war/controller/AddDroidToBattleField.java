@@ -3,7 +3,7 @@ package com.epam.lab.war.controller;
 import java.util.List;
 
 /**
- * Created by Mykola on 03.07.2017.
+ * Add Droids to battleField
  */
 public class AddDroidToBattleField {
     public static void addDroidDekaToBattleField(List<Integer> position) {

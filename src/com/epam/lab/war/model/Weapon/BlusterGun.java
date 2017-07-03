@@ -6,7 +6,7 @@ import com.sun.org.apache.bcel.internal.classfile.Constant;
 import java.util.Random;
 
 /**
- * Created by Mykola on 29.06.2017.
+ * Bluster gun class
  */
 public class BlusterGun implements Gun {
 
