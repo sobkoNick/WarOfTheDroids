@@ -1,30 +1,25 @@
 package com.epam.lab.war.controller;
 
 import com.epam.lab.war.model.droid.BattleDroidB1;
-import com.epam.lab.war.model.droid.Droid;
 import com.epam.lab.war.model.droid.SuperBattleDroidB2;
-import com.epam.lab.war.model.droid.constant.DroidContant;
 import com.epam.lab.war.model.weapon.BlusterGun;
 import com.epam.lab.war.model.weapon.RocketGun;
-import com.epam.lab.war.view.ViewStartScreen;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by Mykola on 29.06.2017.
  */
 public class Main {
+
+    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        ViewStartScreen.printStartMessage();
-
-        List<Droid> droids = new ArrayList<>();
-
-        List<Droid> enemyDroids = new ArrayList<>();
 
         GameController gameController = new GameController();
-        gameController.printArr();
-
+        gameController.setUpBattleField();
+        gameController.startGame();
+//        gameController.generatePosition();
 
         BattleDroidB1 battleDroid = new BattleDroidB1(100, 100, 0, 0, new BlusterGun());
 
