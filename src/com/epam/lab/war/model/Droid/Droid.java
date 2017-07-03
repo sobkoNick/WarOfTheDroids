@@ -82,9 +82,9 @@ public abstract class Droid {
 
     public abstract Droid actForUser(Droid droid);
 
-    public abstract void move();
+    public abstract void move(int x, int y);
 
-    public abstract List<Droid> act(List<Droid> droids);
+    public abstract List<Droid> act(List<Droid> droids, boolean enemy);
 
     public abstract void setDamage(int damagePower);
 

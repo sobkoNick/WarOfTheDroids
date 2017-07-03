@@ -1,5 +1,7 @@
 package com.epam.lab.war.model.droid;
 
+import com.epam.lab.war.controller.CreateDroid;
+import com.epam.lab.war.controller.GameController;
 import com.epam.lab.war.model.droid.constant.DroidContant;
 import com.epam.lab.war.model.weapon.BlusterGun;
 
@@ -36,17 +38,22 @@ public class BattleDroidB1 extends Droid implements BattleDroid {
     }
 
     @Override
-    public void move() {
-        walk();
+    public void move(int x, int y) {
+        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        setPositionX(x);
+        setPositionY(y);
+        GameController.battleField[x][y] = 'B';
     }
 
     @Override
-    public List<Droid> act(List<Droid> droids) {
+    public List<Droid> act(List<Droid> droids, boolean enemy) {
         Random random = new Random();
         if (random.nextBoolean()) {
             droids = decideWhichDroidToShoot(droids);
         } else {
-            // move
+            CreateDroid createDroid = new CreateDroid();
+            List<Integer> positions = createDroid.generatePosition(enemy);
+            move(positions.get(0),positions.get(1));
         }
         setEnergyLevel(getEnergyLevel() - 5);
         if (getEnergyLevel() <= 0){
@@ -73,16 +80,6 @@ public class BattleDroidB1 extends Droid implements BattleDroid {
 //            droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
         }
         return droids;
-    }
-
-    public void walk() {
-//        List<Integer> positionList = new LinkedList<>();
-//
-//        if (GameController.battleField[positionY][positionX] == '0' ||
-//                GameController.battleField[positionY][positionX] == '1' ||
-//                GameController.battleField[positionY][positionX] == '2') {
-//
-//        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.epam.lab.war.model.droid;
 
+import com.epam.lab.war.controller.GameController;
 import com.epam.lab.war.model.droid.constant.DroidContant;
 import com.epam.lab.war.model.weapon.BlusterGun;
 
@@ -43,23 +44,13 @@ public class Droideka extends BattleDroidB1 {
     }
 
     @Override
-    public void move() {
-
+    public void move(int x, int y) {
+        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        setPositionX(x);
+        setPositionY(y);
+        GameController.battleField[x][y] = 'D';
     }
 
-    @Override
-    public void walk() {
-        useShield();
-    }
-
-    public void roll() {
-        shieldActive = false;
-    }
-
-    public void useShield() {
-        shieldActive = true;
-
-    }
 
     @Override
     public List<Droid> decideWhichDroidToShoot(List<Droid> droids) {
@@ -108,6 +99,7 @@ public class Droideka extends BattleDroidB1 {
             }
         }
     }
+
 
     @Override
     public String toString() {

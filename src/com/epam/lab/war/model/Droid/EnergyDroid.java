@@ -1,9 +1,9 @@
 package com.epam.lab.war.model.droid;
 
+import com.epam.lab.war.controller.GameController;
 import com.epam.lab.war.model.droid.constant.DroidContant;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Energy droid recharges other droids
@@ -16,20 +16,18 @@ public class EnergyDroid extends Droid {
     }
 
     @Override
-    public List<Droid> act(List<Droid> droids) {
-        Random random = new Random();
-        if (random.nextBoolean()) {
-            droids = decideWhichDroidToRecharge(droids);
-        } else {
-
-        }
+    public List<Droid> act(List<Droid> droids, boolean enemy) {
+        droids = decideWhichDroidToRecharge(droids);
         setEnergyLevel(getEnergyLevel() - 5);
         return droids;
     }
 
     @Override
-    public void move() {
-
+    public void move(int x, int y) {
+        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        setPositionX(x);
+        setPositionY(y);
+        GameController.battleField[x][y] = 'E';
     }
 
     @Override
@@ -52,6 +50,7 @@ public class EnergyDroid extends Droid {
                 droidToRecharge = droid;
             }
         }
+        move(droidToRecharge.getPositionX(), droidToRecharge.getPositionY());
         rechargeOtherDroid(droidToRecharge);
         return droids;
     }
@@ -64,6 +63,8 @@ public class EnergyDroid extends Droid {
             setEnergyLevel(0);
             setAlive(false);
         }
+        if (!droid.isAlive() && droid.getHealthLevel() > 0)
+            droid.setAlive(true);
         setEnergyLevel(getEnergyLevel() - 5);
     }
 

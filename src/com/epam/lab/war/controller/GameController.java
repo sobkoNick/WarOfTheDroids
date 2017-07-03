@@ -146,32 +146,35 @@ public class GameController {
         printBattleField();
     }
 
-    public void battleRound(){
+    public void battleRound() {
 
-       int droidToAttack = userMessages.act(enemyDroids);
-        for (Droid d: droids
-             ) {
-            if (d.isUser()){
+        int droidToAttack = userMessages.act(enemyDroids);
+        for (Droid d : droids
+                ) {
+            if (d.isUser() && d.isAlive()) {
                 d.actForUser(enemyDroids.get(droidToAttack));
             }
         }
 
         for (int i = 0; i < droids.size(); i++) {
-            if (!droids.get(i).isUser()){
+            if (!droids.get(i).isUser() && droids.get(i).isAlive()) {
                 if (droids.get(i).getType().equals(DroidContant.ENERGY_TYPE) ||
                         droids.get(i).getType().equals(DroidContant.MECHANIC_TYPE)) {
-                    droids.get(i).act(droids);
+                    droids.get(i).act(droids, false);
                 } else {
-                    droids.get(i).act(enemyDroids);
+                    droids.get(i).act(enemyDroids, false);
                 }
             }
-            if (enemyDroids.get(i).getType().equals(DroidContant.ENERGY_TYPE) || enemyDroids.get(i).getType().equals(DroidContant.MECHANIC_TYPE)) {
-                enemyDroids.get(i).act(enemyDroids);
-            } else {
-                enemyDroids.get(i).act(droids);
+            if (enemyDroids.get(i).isAlive()){
+                if (enemyDroids.get(i).getType().equals(DroidContant.ENERGY_TYPE) || enemyDroids.get(i).getType().equals(DroidContant.MECHANIC_TYPE)) {
+                    enemyDroids.get(i).act(enemyDroids, true);
+                } else {
+                    enemyDroids.get(i).act(droids, true);
+                }
             }
         }
         view.println(String.format("-----Results after round #%d--------", ++battleCounter));
+        printBattleField();
         view.println("----------USER DROIDS------------");
         for (int i = 0; i < droids.size(); i++) {
             view.println(droids.get(i).toString());
@@ -187,13 +190,13 @@ public class GameController {
     public void decideWinner() {
         int userDroidDeadCounter = 0;
         int enemyDroidDeadCounter = 0;
-        for (Droid d: droids
-             ) {
+        for (Droid d : droids
+                ) {
             if (!d.isAlive()) {
                 userDroidDeadCounter++;
             }
         }
-        for (Droid d: enemyDroids
+        for (Droid d : enemyDroids
                 ) {
             if (!d.isAlive()) {
                 enemyDroidDeadCounter++;

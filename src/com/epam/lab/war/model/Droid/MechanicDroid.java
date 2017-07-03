@@ -1,9 +1,9 @@
 package com.epam.lab.war.model.droid;
 
+import com.epam.lab.war.controller.GameController;
 import com.epam.lab.war.model.droid.constant.DroidContant;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Mechanic droids fix other damaged droids
@@ -15,15 +15,10 @@ public class MechanicDroid extends Droid {
     }
 
     @Override
-    public List<Droid> act(List<Droid> droids) {
-        Random random = new Random();
-        if (random.nextBoolean()) {
-            droids = decideWhichDroidToFix(droids);
-        } else {
-
-        }
+    public List<Droid> act(List<Droid> droids, boolean enemy) {
+        droids = decideWhichDroidToFix(droids);
         setEnergyLevel(getEnergyLevel() - 5);
-        if (getEnergyLevel() <= 0){
+        if (getEnergyLevel() <= 0) {
             setAlive(false);
             setEnergyLevel(0);
         }
@@ -31,8 +26,11 @@ public class MechanicDroid extends Droid {
     }
 
     @Override
-    public void move() {
-
+    public void move(int x, int y) {
+        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        setPositionX(x);
+        setPositionY(y);
+        GameController.battleField[x][y] = 'M';
     }
 
     @Override
@@ -55,12 +53,15 @@ public class MechanicDroid extends Droid {
                 droidToFix = droid;
             }
         }
+        move(droidToFix.getPositionX(), droidToFix.getPositionY());
         fixOtherDroid(droidToFix);
         return droids;
     }
 
     public void fixOtherDroid(Droid droid) {
         droid.setHealthLevel(droid.getHealthLevel() + 20);
+        if (!droid.isAlive() && droid.getEnergyLevel() > 0)
+            droid.setAlive(true);
         setEnergyLevel(getEnergyLevel() - 5);
     }
 

@@ -29,8 +29,8 @@ public class UserMessages {
         view.println("Choose droid to attack:");
         for (Droid droid : enemyDroids
                 ) {
-            view.println(String.format("%d : ", chooseCounter));
-            view.print(droid.toString());
+            view.print(String.format("%d : ", chooseCounter++));
+            view.println(droid.toString());
         }
         return Main.scanner.nextInt();
     }

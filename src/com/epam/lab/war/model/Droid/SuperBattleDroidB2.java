@@ -1,5 +1,6 @@
 package com.epam.lab.war.model.droid;
 
+import com.epam.lab.war.controller.GameController;
 import com.epam.lab.war.model.droid.constant.DroidContant;
 import com.epam.lab.war.model.weapon.BlusterGun;
 import com.epam.lab.war.model.weapon.RocketGun;
@@ -34,6 +35,14 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
     }
 
     @Override
+    public void move(int x, int y) {
+        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        setPositionX(x);
+        setPositionY(y);
+        GameController.battleField[x][y] = 'S';
+    }
+
+    @Override
     public List<Droid> decideWhichDroidToShoot(List<Droid> droids) {
 
         int droidNumber = 0;
@@ -45,6 +54,8 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
                 droidNumber = droids.indexOf(d);
             }
         }
+
+
 
 //        double damageOdd = 0;
 //
