@@ -6,13 +6,13 @@ package com.epam.lab.war.model.droid.constant;
 public final class DroidContant {
     // for BlusterGun
     public static final int MAX_BLASTER_POWER_LEVEL = 100;
-    public static final int BLUSTER_DAMAGE_POWER = 10;
+    public static final int BLUSTER_DAMAGE_POWER = 40;
     public static final double BLUSTER_SHOOT_ACCURACY = 0.8;
 
     //for RocketGun
     public static final int MAX_ROCKET_IN_GUN = 10;
-    public static final int ROCKET_DAMAGE_POWER = 50;
-    public static final double ROCKET_SHOOT_ACCURACY = 0.5;
+    public static final int ROCKET_DAMAGE_POWER = 80;
+    public static final double ROCKET_SHOOT_ACCURACY = 0.6;
 
     public static final String B1_TYPE = "B1";
     public static final String B2_TYPE = "B2";

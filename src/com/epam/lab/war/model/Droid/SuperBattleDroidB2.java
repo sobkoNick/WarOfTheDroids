@@ -8,15 +8,16 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Mykola on 29.06.2017.
+ * B2 droid has bluster and rocket
  */
 public class SuperBattleDroidB2 extends BattleDroidB1 {
     Random random = new Random();
 
     private RocketGun rocketGun;
 
-    public SuperBattleDroidB2(String type, int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun, RocketGun rocketGun) {
-        super(type, healthLevel, energyLevel, positionX, positionY, blusterGun);
+    public SuperBattleDroidB2(String type, boolean alive, boolean user, int healthLevel, int energyLevel,
+                              int positionX, int positionY, BlusterGun blusterGun, RocketGun rocketGun) {
+        super(type, alive, user, healthLevel, energyLevel, positionX, positionY, blusterGun);
         this.rocketGun = rocketGun;
     }
 
@@ -26,15 +27,6 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
 
     public void setRocketGun(RocketGun rocketGun) {
         this.rocketGun = rocketGun;
-    }
-
-    public void chooseWeapon() {
-        Random random = new Random();
-        if (random.nextBoolean()) {
-            shoot();
-        } else {
-            rocketShoot();
-        }
     }
 
     public boolean rocketShoot() {
@@ -54,21 +46,28 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
             }
         }
 
+//        double damageOdd = 0;
+//
+//        if (GameController.fixedPositionField[droids.get(droidNumber).getPositionY()][droids.get(droidNumber).getPositionX()] == '1') {
+//            damageOdd = 0.5;
+//        }
+//        if (GameController.fixedPositionField[droids.get(droidNumber).getPositionY()][droids.get(droidNumber).getPositionX()] == '2') {
+//            damageOdd = 0;
+//        }
+
         if (random.nextBoolean()) {
             if (shoot()) {
                 int damageToEnemyDroid = DroidContant.BLUSTER_DAMAGE_POWER;
-                droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
+                droids.get(droidNumber).setDamage(damageToEnemyDroid);
+//                droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
             }
         } else {
             if (rocketShoot()) {
                 int damageToEnemyDroid = DroidContant.ROCKET_DAMAGE_POWER;
-                droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
+                droids.get(droidNumber).setDamage(damageToEnemyDroid);
+//                droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
             }
         }
         return droids;
     }
-    //    public void useShield() {
-//        View view = new ConsoleView();
-//        view.print("B2 now uses shield");
-//    }
 }

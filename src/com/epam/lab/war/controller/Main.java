@@ -12,18 +12,14 @@ import java.util.Scanner;
  */
 public class Main {
 
-    static Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
 
         GameController gameController = new GameController();
         gameController.setUpBattleField();
         gameController.startGame();
-
-
-        for (int i = 0; i < 10; i++) {
-            gameController.battleRound();
-        }
+        gameController.battleRound();
 
 
 //        System.out.println("hello");

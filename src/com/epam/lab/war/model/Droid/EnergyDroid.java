@@ -6,9 +6,15 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Mykola on 30.06.2017.
+ * Energy droid recharges other droids
  */
 public class EnergyDroid extends Droid {
+
+    public EnergyDroid(String type, boolean alive, boolean user,
+                       int healthLevel, int energyLevel, int positionX, int positionY) {
+        super(type, alive, user, healthLevel, energyLevel, positionX, positionY);
+    }
+
     @Override
     public List<Droid> act(List<Droid> droids) {
         Random random = new Random();
@@ -17,16 +23,19 @@ public class EnergyDroid extends Droid {
         } else {
 
         }
+        setEnergyLevel(getEnergyLevel() - 5);
         return droids;
-    }
-
-    public EnergyDroid(String type, int healthLevel, int energyLevel, int positionX, int positionY) {
-        super(type, healthLevel, energyLevel, positionX, positionY);
     }
 
     @Override
     public void move() {
 
+    }
+
+    @Override
+    public Droid actForUser(Droid droid) {
+        rechargeOtherDroid(droid);
+        return droid;
     }
 
     /**
@@ -37,7 +46,7 @@ public class EnergyDroid extends Droid {
      */
 
     public List<Droid> decideWhichDroidToRecharge(List<Droid> droids) {
-        Droid droidToRecharge = new EnergyDroid(DroidContant.ENERGY_TYPE,100, 100, 0 ,0);
+        Droid droidToRecharge = new EnergyDroid(DroidContant.ENERGY_TYPE, true, false, 100, 100, 0, 0);
         for (Droid droid : droids) {
             if (droid.getEnergyLevel() < droidToRecharge.getEnergyLevel()) {
                 droidToRecharge = droid;
@@ -48,7 +57,22 @@ public class EnergyDroid extends Droid {
     }
 
     public void rechargeOtherDroid(Droid droid) {
-        droid.setEnergyLevel(droid.getEnergyLevel() + 50);
-        this.setEnergyLevel(this.getEnergyLevel() - 50);
+        if (getEnergyLevel() > 0) {
+            droid.setEnergyLevel(droid.getEnergyLevel() + 20);
+            this.setEnergyLevel(this.getEnergyLevel() - 20);
+        } else {
+            setEnergyLevel(0);
+            setAlive(false);
+        }
+        setEnergyLevel(getEnergyLevel() - 5);
+    }
+
+    @Override
+    public void setDamage(int damagePower) {
+        setHealthLevel(getHealthLevel() - damagePower);
+        if (getHealthLevel() <= 0) {
+            setAlive(false);
+            setHealthLevel(0);
+        }
     }
 }

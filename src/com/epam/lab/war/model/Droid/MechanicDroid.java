@@ -6,9 +6,14 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Mykola on 30.06.2017.
+ * Mechanic droids fix other damaged droids
  */
 public class MechanicDroid extends Droid {
+    public MechanicDroid(String type, boolean alive, boolean user,
+                         int healthLevel, int energyLevel, int positionX, int positionY) {
+        super(type, alive, user, healthLevel, energyLevel, positionX, positionY);
+    }
+
     @Override
     public List<Droid> act(List<Droid> droids) {
         Random random = new Random();
@@ -17,16 +22,23 @@ public class MechanicDroid extends Droid {
         } else {
 
         }
+        setEnergyLevel(getEnergyLevel() - 5);
+        if (getEnergyLevel() <= 0){
+            setAlive(false);
+            setEnergyLevel(0);
+        }
         return droids;
-    }
-
-    public MechanicDroid(String type, int healthLevel, int energyLevel, int positionX, int positionY) {
-        super(type, healthLevel, energyLevel, positionX, positionY);
     }
 
     @Override
     public void move() {
 
+    }
+
+    @Override
+    public Droid actForUser(Droid droid) {
+        fixOtherDroid(droid);
+        return droid;
     }
 
     /**
@@ -36,7 +48,8 @@ public class MechanicDroid extends Droid {
      * @return
      */
     public List<Droid> decideWhichDroidToFix(List<Droid> droids) {
-        Droid droidToFix = new MechanicDroid(DroidContant.MECHANIC_TYPE,100, 100, 0,0);
+        Droid droidToFix = new MechanicDroid(DroidContant.MECHANIC_TYPE, true, false,
+                100, 100, 0, 0);
         for (Droid droid : droids) {
             if (droid.getHealthLevel() < droidToFix.getHealthLevel()) {
                 droidToFix = droid;
@@ -47,6 +60,16 @@ public class MechanicDroid extends Droid {
     }
 
     public void fixOtherDroid(Droid droid) {
-        droid.setHealthLevel(droid.getHealthLevel() + 50);
+        droid.setHealthLevel(droid.getHealthLevel() + 20);
+        setEnergyLevel(getEnergyLevel() - 5);
+    }
+
+    @Override
+    public void setDamage(int damagePower) {
+        setHealthLevel(getHealthLevel() - damagePower);
+        if (getHealthLevel() <= 0) {
+            setAlive(false);
+            setHealthLevel(0);
+        }
     }
 }

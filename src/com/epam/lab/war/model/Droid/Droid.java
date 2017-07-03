@@ -3,17 +3,21 @@ package com.epam.lab.war.model.droid;
 import java.util.List;
 
 /**
- * Created by Mykola on 29.06.2017.
+ * General abstract Droid class
  */
 public abstract class Droid {
     private String type;
+    private boolean alive;
+    private boolean user;
     private int healthLevel;
     private int energyLevel;
     private int positionX;
     private int positionY;
 
-    public Droid(String type, int healthLevel, int energyLevel, int positionX, int positionY) {
+    public Droid(String type, boolean alive, boolean user, int healthLevel, int energyLevel, int positionX, int positionY) {
         this.type = type;
+        this.alive = alive;
+        this.user = user;
         this.healthLevel = healthLevel;
         this.energyLevel = energyLevel;
         this.positionX = positionX;
@@ -60,9 +64,29 @@ public abstract class Droid {
         this.type = type;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isUser() {
+        return user;
+    }
+
+    public void setUser(boolean user) {
+        this.user = user;
+    }
+
+    public abstract Droid actForUser(Droid droid);
+
     public abstract void move();
 
     public abstract List<Droid> act(List<Droid> droids);
+
+    public abstract void setDamage(int damagePower);
 
     @Override
     public String toString() {

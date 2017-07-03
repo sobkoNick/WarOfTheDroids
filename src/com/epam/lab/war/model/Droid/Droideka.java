@@ -6,7 +6,7 @@ import com.epam.lab.war.model.weapon.BlusterGun;
 import java.util.List;
 
 /**
- * Created by Mykola on 30.06.2017.
+ * Droideka. has shield and 4 blusters.
  */
 public class Droideka extends BattleDroidB1 {
     private BlusterGun blusterGun2;
@@ -15,9 +15,10 @@ public class Droideka extends BattleDroidB1 {
     private int shieldHealthLevel;
     private boolean shieldActive;
 
-    public Droideka(String type, int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun, BlusterGun blusterGun2,
-                    BlusterGun blusterGun3, BlusterGun blusterGun4, int shieldHealthLevel, boolean shieldActive) {
-        super(type, healthLevel, energyLevel, positionX, positionY, blusterGun);
+    public Droideka(String type, boolean alive, boolean user, int healthLevel, int energyLevel,
+                    int positionX, int positionY, BlusterGun blusterGun, BlusterGun blusterGun2, BlusterGun blusterGun3,
+                    BlusterGun blusterGun4, int shieldHealthLevel, boolean shieldActive) {
+        super(type, alive, user, healthLevel, energyLevel, positionX, positionY, blusterGun);
         this.blusterGun2 = blusterGun2;
         this.blusterGun3 = blusterGun3;
         this.blusterGun4 = blusterGun4;
@@ -59,13 +60,6 @@ public class Droideka extends BattleDroidB1 {
         shieldActive = true;
 
     }
-    public void getDamage(int damageSize) {
-        if (shieldActive || shieldHealthLevel > damageSize) {
-            shieldHealthLevel -= damageSize;
-        } else {
-            setHealthLevel(getHealthLevel() - damageSize);
-        }
-    }
 
     @Override
     public List<Droid> decideWhichDroidToShoot(List<Droid> droids) {
@@ -79,12 +73,14 @@ public class Droideka extends BattleDroidB1 {
             }
         }
         int damageToEnemyDroid = shootFromAllWeapons() * DroidContant.BLUSTER_DAMAGE_POWER;
-        droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
+        droids.get(droidNumber).setDamage(damageToEnemyDroid);
+//        droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
         return droids;
     }
 
     public int shootFromAllWeapons() {
         int hitCounter = 0;
+        setShieldActive(true);
         if (getBlusterGun().shoot()) {
             hitCounter++;
         }
@@ -98,6 +94,19 @@ public class Droideka extends BattleDroidB1 {
             hitCounter++;
         }
         return hitCounter;
+    }
+
+    @Override
+    public void setDamage(int damagePower) {
+        if (shieldActive && getShieldHealthLevel() > 0) {
+            setShieldHealthLevel(getHealthLevel() - damagePower);
+        } else {
+            setHealthLevel(getHealthLevel() - damagePower);
+            if (getHealthLevel() <= 0) {
+                setAlive(false);
+                setHealthLevel(0);
+            }
+        }
     }
 
     @Override

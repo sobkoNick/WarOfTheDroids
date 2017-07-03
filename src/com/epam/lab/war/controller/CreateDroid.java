@@ -45,7 +45,8 @@ public class CreateDroid {
 
     public Droideka createDekaDroid(boolean enemy) {
         droidPositionList = generatePosition(enemy);
-        Droideka droideka = new Droideka(DroidContant.DROID_DEKA_TYPE,100, 100, droidPositionList.get(0), droidPositionList.get(1),
+        Droideka droideka = new Droideka(DroidContant.DROID_DEKA_TYPE, true, false, 100,
+                100, droidPositionList.get(0), droidPositionList.get(1),
                 new BlusterGun(), new BlusterGun(), new BlusterGun(), new BlusterGun(), 100, false);
         AddDroidToBattleField.addDroidDekaToBattleField(droidPositionList);
         return droideka;
@@ -53,28 +54,32 @@ public class CreateDroid {
 
     public BattleDroidB1 createBattleDroidB1(boolean enemy) {
         droidPositionList = generatePosition(enemy);
-        BattleDroidB1 b1 = new BattleDroidB1(DroidContant.B1_TYPE,100, 100, droidPositionList.get(0), droidPositionList.get(1), new BlusterGun());
+        BattleDroidB1 b1 = new BattleDroidB1(DroidContant.B1_TYPE, true, false, 100,
+                100, droidPositionList.get(0), droidPositionList.get(1), new BlusterGun());
         AddDroidToBattleField.addB1ToBattleField(droidPositionList);
         return b1;
     }
 
     public SuperBattleDroidB2 createSuperB2(boolean enemy) {
         droidPositionList = generatePosition(enemy);
-        SuperBattleDroidB2 b2 = new SuperBattleDroidB2(DroidContant.B2_TYPE,100, 100, droidPositionList.get(0), droidPositionList.get(1), new BlusterGun(), new RocketGun());
+        SuperBattleDroidB2 b2 = new SuperBattleDroidB2(DroidContant.B2_TYPE, true, false, 100,
+                100, droidPositionList.get(0), droidPositionList.get(1), new BlusterGun(), new RocketGun());
         AddDroidToBattleField.addSuperB2ToBattleField(droidPositionList);
         return b2;
     }
 
     public MechanicDroid createMechanicDroid(boolean enemy) {
         droidPositionList = generatePosition(enemy);
-        MechanicDroid mechanicDroid = new MechanicDroid(DroidContant.MECHANIC_TYPE,100, 100, droidPositionList.get(0), droidPositionList.get(1));
+        MechanicDroid mechanicDroid = new MechanicDroid(DroidContant.MECHANIC_TYPE, true, false, 100,
+                100, droidPositionList.get(0), droidPositionList.get(1));
         AddDroidToBattleField.addMechanicDroidToBattleField(droidPositionList);
         return mechanicDroid;
     }
 
     public EnergyDroid createEnergyDroid(boolean enemy) {
         droidPositionList = generatePosition(enemy);
-        EnergyDroid energyDroid = new EnergyDroid(DroidContant.ENERGY_TYPE,100, 100, droidPositionList.get(0), droidPositionList.get(1));
+        EnergyDroid energyDroid = new EnergyDroid(DroidContant.ENERGY_TYPE, true, false, 100,
+                100, droidPositionList.get(0), droidPositionList.get(1));
         AddDroidToBattleField.addEnergyDroidToBattleField(droidPositionList);
         return energyDroid;
     }
