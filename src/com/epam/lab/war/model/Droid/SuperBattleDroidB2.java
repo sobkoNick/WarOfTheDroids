@@ -1,5 +1,6 @@
 package com.epam.lab.war.model.droid;
 
+import com.epam.lab.war.model.droid.constant.DroidContant;
 import com.epam.lab.war.model.weapon.BlusterGun;
 import com.epam.lab.war.model.weapon.RocketGun;
 
@@ -10,10 +11,12 @@ import java.util.Random;
  * Created by Mykola on 29.06.2017.
  */
 public class SuperBattleDroidB2 extends BattleDroidB1 {
+    Random random = new Random();
+
     private RocketGun rocketGun;
 
-    public SuperBattleDroidB2(int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun, RocketGun rocketGun) {
-        super(healthLevel, energyLevel, positionX, positionY, blusterGun);
+    public SuperBattleDroidB2(String type, int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun, RocketGun rocketGun) {
+        super(type, healthLevel, energyLevel, positionX, positionY, blusterGun);
         this.rocketGun = rocketGun;
     }
 
@@ -39,8 +42,30 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
     }
 
     @Override
-    public Droid decideWhichDroidToShoot(List<Droid> droids) {
-        return null;
+    public List<Droid> decideWhichDroidToShoot(List<Droid> droids) {
+
+        int droidNumber = 0;
+        Droid droidToAttack = droids.get(0);
+        for (Droid d: droids
+                ) {
+            if (d.getHealthLevel()  > droidToAttack.getHealthLevel()) {
+                droidToAttack = d;
+                droidNumber = droids.indexOf(d);
+            }
+        }
+
+        if (random.nextBoolean()) {
+            if (shoot()) {
+                int damageToEnemyDroid = DroidContant.BLUSTER_DAMAGE_POWER;
+                droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
+            }
+        } else {
+            if (rocketShoot()) {
+                int damageToEnemyDroid = DroidContant.ROCKET_DAMAGE_POWER;
+                droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
+            }
+        }
+        return droids;
     }
     //    public void useShield() {
 //        View view = new ConsoleView();

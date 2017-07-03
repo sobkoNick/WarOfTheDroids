@@ -50,4 +50,11 @@ public class BlusterGun implements Gun {
     public void recharge() {
         blasterPowerLevel = MAX_BLASTER_POWER_LEVEL;
     }
+
+    @Override
+    public String toString() {
+        return "BlusterGun{" +
+                "blasterPowerLevel=" + blasterPowerLevel +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
 package com.epam.lab.war.controller;
 
 import com.epam.lab.war.model.droid.Droid;
+import com.epam.lab.war.model.droid.constant.DroidContant;
 import com.epam.lab.war.view.ConsoleView;
 import com.epam.lab.war.view.View;
 import com.epam.lab.war.view.ViewStartScreen;
@@ -134,6 +135,32 @@ public class GameController {
             }
         }
         printBattleField();
+    }
+
+    public void battleRound(){
+        for (int i = 0; i < droids.size(); i++) {
+            if (droids.get(i).getType().equals(DroidContant.ENERGY_TYPE) || droids.get(i).getType().equals(DroidContant.MECHANIC_TYPE)) {
+                droids.get(i).act(droids);
+            } else {
+                droids.get(i).act(enemyDroids);
+            }
+            if (enemyDroids.get(i).getType().equals(DroidContant.ENERGY_TYPE) || enemyDroids.get(i).getType().equals(DroidContant.MECHANIC_TYPE)) {
+                enemyDroids.get(i).act(enemyDroids);
+            } else {
+                enemyDroids.get(i).act(droids);
+            }
+        }
+
+        for (int i = 0; i < droids.size(); i++) {
+            view.println(droids.get(i).toString());
+        }
+
+        view.println("----------------------");
+
+        for (int i = 0; i < enemyDroids.size(); i++) {
+            view.println(enemyDroids.get(i).toString());
+        }
+        view.println("---------END OF ROUND-------------");
     }
 
 //    public int inputInt() {

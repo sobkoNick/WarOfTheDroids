@@ -1,13 +1,27 @@
 package com.epam.lab.war.model.droid;
 
+import com.epam.lab.war.model.droid.constant.DroidContant;
+
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Mykola on 30.06.2017.
  */
 public class EnergyDroid extends Droid {
-    public EnergyDroid(int healthLevel, int energyLevel, int positionX, int positionY) {
-        super(healthLevel, energyLevel, positionX, positionY);
+    @Override
+    public List<Droid> act(List<Droid> droids) {
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            droids = decideWhichDroidToRecharge(droids);
+        } else {
+
+        }
+        return droids;
+    }
+
+    public EnergyDroid(String type, int healthLevel, int energyLevel, int positionX, int positionY) {
+        super(type, healthLevel, energyLevel, positionX, positionY);
     }
 
     @Override
@@ -22,17 +36,19 @@ public class EnergyDroid extends Droid {
      * @return
      */
 
-    public Droid decideWhichDroidToRecharge(List<Droid> droids) {
-        Droid droidToRecharge = new EnergyDroid(100, 100, 0 ,0);
+    public List<Droid> decideWhichDroidToRecharge(List<Droid> droids) {
+        Droid droidToRecharge = new EnergyDroid(DroidContant.ENERGY_TYPE,100, 100, 0 ,0);
         for (Droid droid : droids) {
             if (droid.getEnergyLevel() < droidToRecharge.getEnergyLevel()) {
                 droidToRecharge = droid;
             }
         }
-        return droidToRecharge;
+        rechargeOtherDroid(droidToRecharge);
+        return droids;
     }
 
     public void rechargeOtherDroid(Droid droid) {
         droid.setEnergyLevel(droid.getEnergyLevel() + 50);
+        this.setEnergyLevel(this.getEnergyLevel() - 50);
     }
 }

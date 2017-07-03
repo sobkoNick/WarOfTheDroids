@@ -14,4 +14,10 @@ public final class DroidContant {
     public static final int ROCKET_DAMAGE_POWER = 50;
     public static final double ROCKET_SHOOT_ACCURACY = 0.5;
 
+    public static final String B1_TYPE = "B1";
+    public static final String B2_TYPE = "B2";
+    public static final String DROID_DEKA_TYPE = "DROIDEKA";
+    public static final String MECHANIC_TYPE = "MECHANIC";
+    public static final String ENERGY_TYPE = "ENERGY";
+
 }

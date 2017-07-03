@@ -7,5 +7,5 @@ import java.util.List;
  */
 public interface BattleDroid {
     boolean shoot();
-    Droid decideWhichDroidToShoot(List<Droid> droids);
+    List<Droid> decideWhichDroidToShoot(List<Droid> droids);
 }

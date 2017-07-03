@@ -19,11 +19,12 @@ public class Main {
         GameController gameController = new GameController();
         gameController.setUpBattleField();
         gameController.startGame();
-//        gameController.generatePosition();
 
-        BattleDroidB1 battleDroid = new BattleDroidB1(100, 100, 0, 0, new BlusterGun());
 
-        SuperBattleDroidB2 superBattleDroidB2 = new SuperBattleDroidB2(100, 100, 0, 0, new BlusterGun(), new RocketGun());
+        for (int i = 0; i < 10; i++) {
+            gameController.battleRound();
+        }
+
 
 //        System.out.println("hello");
 //        try {

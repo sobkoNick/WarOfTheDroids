@@ -1,5 +1,6 @@
 package com.epam.lab.war.model.droid;
 
+import com.epam.lab.war.model.droid.constant.DroidContant;
 import com.epam.lab.war.model.weapon.BlusterGun;
 
 import java.util.List;
@@ -14,9 +15,9 @@ public class Droideka extends BattleDroidB1 {
     private int shieldHealthLevel;
     private boolean shieldActive;
 
-    public Droideka(int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun, BlusterGun blusterGun2, BlusterGun blusterGun3,
-                    BlusterGun blusterGun4, int shieldHealthLevel, boolean shieldActive) {
-        super(healthLevel, energyLevel, positionX, positionY, blusterGun);
+    public Droideka(String type, int healthLevel, int energyLevel, int positionX, int positionY, BlusterGun blusterGun, BlusterGun blusterGun2,
+                    BlusterGun blusterGun3, BlusterGun blusterGun4, int shieldHealthLevel, boolean shieldActive) {
+        super(type, healthLevel, energyLevel, positionX, positionY, blusterGun);
         this.blusterGun2 = blusterGun2;
         this.blusterGun3 = blusterGun3;
         this.blusterGun4 = blusterGun4;
@@ -67,8 +68,19 @@ public class Droideka extends BattleDroidB1 {
     }
 
     @Override
-    public Droid decideWhichDroidToShoot(List<Droid> droids) {
-        return null;
+    public List<Droid> decideWhichDroidToShoot(List<Droid> droids) {
+        int droidNumber = 0;
+        Droid droidToAttack = droids.get(0);
+        for (Droid d: droids
+             ) {
+            if (d.getHealthLevel()  > droidToAttack.getHealthLevel()) {
+                droidToAttack = d;
+                droidNumber = droids.indexOf(d);
+            }
+        }
+        int damageToEnemyDroid = shootFromAllWeapons() * DroidContant.BLUSTER_DAMAGE_POWER;
+        droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
+        return droids;
     }
 
     public int shootFromAllWeapons() {
@@ -88,4 +100,14 @@ public class Droideka extends BattleDroidB1 {
         return hitCounter;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "Droideka{" +
+                "blusterGun2=" + blusterGun2 +
+                ", blusterGun3=" + blusterGun3 +
+                ", blusterGun4=" + blusterGun4 +
+                ", shieldHealthLevel=" + shieldHealthLevel +
+                ", shieldActive=" + shieldActive +
+                '}';
+    }
 }
