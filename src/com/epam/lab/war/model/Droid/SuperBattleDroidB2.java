@@ -22,49 +22,39 @@ public class SuperBattleDroidB2 extends BattleDroidB1 {
         this.rocketGun = rocketGun;
     }
 
-    public RocketGun getRocketGun() {
-        return rocketGun;
-    }
-
-    public void setRocketGun(RocketGun rocketGun) {
-        this.rocketGun = rocketGun;
-    }
-
     public boolean rocketShoot() {
         return rocketGun.shoot();
     }
 
     @Override
     public void move(int x, int y) {
-        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        GameController.battleField[getPositionX()][getPositionY()] = DroidContant.EMPTY_SPACE_SYMBOL;
         setPositionX(x);
         setPositionY(y);
-        GameController.battleField[x][y] = 'S';
+        GameController.battleField[x][y] = DroidContant.B2_SYMBOL;
     }
 
     @Override
     public List<Droid> decideWhichDroidToShoot(List<Droid> droids) {
-
         int droidNumber = 0;
         Droid droidToAttack = droids.get(0);
-        for (Droid d : droids
-                ) {
+        for (Droid d : droids) {
             if (d.getHealthLevel() > droidToAttack.getHealthLevel()) {
                 droidToAttack = d;
                 droidNumber = droids.indexOf(d);
             }
         }
+        int damageToEnemyDroid = 0;
         if (random.nextBoolean()) {
             if (shoot()) {
-                int damageToEnemyDroid = DroidContant.BLUSTER_DAMAGE_POWER;
-                droids.get(droidNumber).setDamage(damageToEnemyDroid);
+                damageToEnemyDroid = DroidContant.BLUSTER_DAMAGE_POWER;
             }
         } else {
             if (rocketShoot()) {
-                int damageToEnemyDroid = DroidContant.ROCKET_DAMAGE_POWER;
-                droids.get(droidNumber).setDamage(damageToEnemyDroid);
+                damageToEnemyDroid = DroidContant.ROCKET_DAMAGE_POWER;
             }
         }
+        droids.get(droidNumber).setDamage(damageToEnemyDroid);
         return droids;
     }
 }

@@ -17,7 +17,6 @@ public class MechanicDroid extends Droid {
     @Override
     public List<Droid> act(List<Droid> droids, boolean enemy) {
         droids = decideWhichDroidToFix(droids);
-        setEnergyLevel(getEnergyLevel() - 5);
         if (getEnergyLevel() <= 0) {
             setAlive(false);
             setEnergyLevel(0);
@@ -27,10 +26,10 @@ public class MechanicDroid extends Droid {
 
     @Override
     public void move(int x, int y) {
-        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        GameController.battleField[getPositionX()][getPositionY()] = DroidContant.EMPTY_SPACE_SYMBOL;
         setPositionX(x);
         setPositionY(y);
-        GameController.battleField[x][y] = 'M';
+        GameController.battleField[x][y] = DroidContant.MECHANIC_SYMBOL;
     }
 
     @Override
@@ -59,10 +58,10 @@ public class MechanicDroid extends Droid {
     }
 
     public void fixOtherDroid(Droid droid) {
-        droid.setHealthLevel(droid.getHealthLevel() + 20);
+        droid.setHealthLevel(droid.getHealthLevel() + DroidContant.MECHANIC_DROID_FIX_VALUE);
         if (!droid.isAlive() && droid.getEnergyLevel() > 0)
             droid.setAlive(true);
-        setEnergyLevel(getEnergyLevel() - 5);
+        setEnergyLevel(getEnergyLevel() - DroidContant.ACTION_ENERGY_COST);
     }
 
     @Override

@@ -60,10 +60,6 @@ public abstract class Droid {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public boolean isAlive() {
         return alive;
     }

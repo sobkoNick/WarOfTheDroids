@@ -24,23 +24,29 @@ public class CreateDroid {
         int positionY;
 
         if (enemy) {
-            positionX = random.nextInt(11);
-            positionY = random.nextInt(4);
+            positionX = random.nextInt(DroidContant.BATTLEFIELD_DROID_MAX_X_POSITION);
+            positionY = random.nextInt(DroidContant.BATTLEFIELD_DROID_MAX_Y_POSITION_FOR_AI);
         } else {
-            positionX = random.nextInt(11);
-            positionY = ThreadLocalRandom.current().nextInt(8, 11 + 1);
+            positionX = random.nextInt(DroidContant.BATTLEFIELD_DROID_MAX_X_POSITION);
+            positionY = ThreadLocalRandom.current().nextInt(DroidContant.BATTLEFIELD_DROID_MIN_Y_POSITION_FOR_USER,
+                    DroidContant.BATTLEFIELD_DROID_MAX_X_POSITION + 1);
         }
 
         List<Integer> positionList = new LinkedList<>();
 
+        if (choosePosition(positionX, positionY, positionList)) return positionList;
+        return generatePosition(enemy);
+    }
+
+    private boolean choosePosition(int positionX, int positionY, List<Integer> positionList) {
         if (GameController.battleField[positionY][positionX] == '0' ||
                 GameController.battleField[positionY][positionX] == '1' ||
                 GameController.battleField[positionY][positionX] == '2') {
             positionList.add(positionX);
             positionList.add(positionY);
-            return positionList;
+            return true;
         }
-        return generatePosition(enemy);
+        return false;
     }
 
     public Droideka createDekaDroid(boolean enemy) {

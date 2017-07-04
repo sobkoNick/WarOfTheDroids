@@ -5,5 +5,4 @@ package com.epam.lab.war.model.weapon;
  */
 public interface Gun {
     boolean shoot();
-    void recharge();
 }

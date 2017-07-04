@@ -39,10 +39,10 @@ public class BattleDroidB1 extends Droid implements BattleDroid {
 
     @Override
     public void move(int x, int y) {
-        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        GameController.battleField[getPositionX()][getPositionY()] = DroidContant.EMPTY_SPACE_SYMBOL;
         setPositionX(x);
         setPositionY(y);
-        GameController.battleField[x][y] = 'B';
+        GameController.battleField[x][y] = DroidContant.B1_SYMBOL;
     }
 
     @Override
@@ -53,10 +53,10 @@ public class BattleDroidB1 extends Droid implements BattleDroid {
         } else {
             CreateDroid createDroid = new CreateDroid();
             List<Integer> positions = createDroid.generatePosition(enemy);
-            move(positions.get(0),positions.get(1));
+            move(positions.get(0), positions.get(1));
         }
-        setEnergyLevel(getEnergyLevel() - 5);
-        if (getEnergyLevel() <= 0){
+        setEnergyLevel(getEnergyLevel() - DroidContant.ACTION_ENERGY_COST);
+        if (getEnergyLevel() <= 0) {
             setAlive(false);
             setEnergyLevel(0);
         }
@@ -67,17 +67,15 @@ public class BattleDroidB1 extends Droid implements BattleDroid {
     public List<Droid> decideWhichDroidToShoot(List<Droid> droids) {
         int droidNumber = 0;
         Droid droidToAttack = droids.get(0);
-        for (Droid d : droids
-                ) {
-            if (d.getHealthLevel() > droidToAttack.getHealthLevel()) {
-                droidToAttack = d;
-                droidNumber = droids.indexOf(d);
+        for (Droid droid : droids) {
+            if (droid.getHealthLevel() > droidToAttack.getHealthLevel()) {
+                droidToAttack = droid;
+                droidNumber = droids.indexOf(droid);
             }
         }
         if (shoot()) {
             int damageToEnemyDroid = DroidContant.BLUSTER_DAMAGE_POWER;
             droids.get(droidNumber).setDamage(damageToEnemyDroid);
-//            droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
         }
         return droids;
     }

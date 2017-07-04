@@ -12,10 +12,10 @@ import java.util.List;
 public class UserController {
 
     public List<Droid> setDroidControlledByUser(List<Droid> droids){
-        int choosenDroid = 0;
+        int chooseDroid = 0;
         UserMessages userMessages = new UserMessages();
-        choosenDroid = userMessages.chooseDroidToAct(droids);
-        droids.get(choosenDroid).setUser(true);
+        chooseDroid = userMessages.chooseDroidToAct(droids);
+        droids.get(chooseDroid).setUser(true);
         return droids;
     }
 

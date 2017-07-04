@@ -35,53 +35,37 @@ public class Droideka extends BattleDroidB1 {
         this.shieldHealthLevel = shieldHealthLevel;
     }
 
-    public boolean isShieldActive() {
-        return shieldActive;
-    }
-
     public void setShieldActive(boolean shieldActive) {
         this.shieldActive = shieldActive;
     }
 
     @Override
     public void move(int x, int y) {
-        GameController.battleField[getPositionX()][getPositionY()] = '0';
+        GameController.battleField[getPositionX()][getPositionY()] = DroidContant.EMPTY_SPACE_SYMBOL;
         setPositionX(x);
         setPositionY(y);
-        GameController.battleField[x][y] = 'D';
+        GameController.battleField[x][y] = DroidContant.DROID_DEKA_SYMBOL;
     }
-
 
     @Override
     public List<Droid> decideWhichDroidToShoot(List<Droid> droids) {
         int droidNumber = 0;
         Droid droidToAttack = droids.get(0);
-        for (Droid d: droids
-             ) {
-            if (d.getHealthLevel()  > droidToAttack.getHealthLevel()) {
-                droidToAttack = d;
-                droidNumber = droids.indexOf(d);
+        for (Droid droid : droids) {
+            if (droid.getHealthLevel() > droidToAttack.getHealthLevel()) {
+                droidToAttack = droid;
+                droidNumber = droids.indexOf(droid);
             }
         }
         int damageToEnemyDroid = shootFromAllWeapons() * DroidContant.BLUSTER_DAMAGE_POWER;
         droids.get(droidNumber).setDamage(damageToEnemyDroid);
-//        droids.get(droidNumber).setHealthLevel(getHealthLevel() - damageToEnemyDroid);
         return droids;
     }
 
     public int shootFromAllWeapons() {
         int hitCounter = 0;
         setShieldActive(true);
-        if (getBlusterGun().shoot()) {
-            hitCounter++;
-        }
-        if (blusterGun2.shoot()) {
-            hitCounter++;
-        }
-        if (blusterGun3.shoot()) {
-            hitCounter++;
-        }
-        if (blusterGun4.shoot()) {
+        if (getBlusterGun().shoot() || blusterGun2.shoot() || blusterGun3.shoot() || blusterGun4.shoot()) {
             hitCounter++;
         }
         return hitCounter;
@@ -99,7 +83,6 @@ public class Droideka extends BattleDroidB1 {
             }
         }
     }
-
 
     @Override
     public String toString() {

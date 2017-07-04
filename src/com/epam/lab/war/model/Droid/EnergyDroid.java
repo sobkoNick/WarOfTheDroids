@@ -42,7 +42,6 @@ public class EnergyDroid extends Droid {
      * @param droids
      * @return
      */
-
     public List<Droid> decideWhichDroidToRecharge(List<Droid> droids) {
         Droid droidToRecharge = new EnergyDroid(DroidContant.ENERGY_TYPE, true, false, 100, 100, 0, 0);
         for (Droid droid : droids) {
@@ -57,15 +56,15 @@ public class EnergyDroid extends Droid {
 
     public void rechargeOtherDroid(Droid droid) {
         if (getEnergyLevel() > 0) {
-            droid.setEnergyLevel(droid.getEnergyLevel() + 20);
-            this.setEnergyLevel(this.getEnergyLevel() - 20);
+            droid.setEnergyLevel(droid.getEnergyLevel() + DroidContant.ENERGY_DROID_RECHARGE_POWER);
+            this.setEnergyLevel(this.getEnergyLevel() - DroidContant.ENERGY_DROID_RECHARGE_POWER);
         } else {
             setEnergyLevel(0);
             setAlive(false);
         }
         if (!droid.isAlive() && droid.getHealthLevel() > 0)
             droid.setAlive(true);
-        setEnergyLevel(getEnergyLevel() - 5);
+        setEnergyLevel(getEnergyLevel() - DroidContant.ACTION_ENERGY_COST);
     }
 
     @Override
